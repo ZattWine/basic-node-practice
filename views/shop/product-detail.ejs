@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+
+  <body>
+    <%- include('../includes/navigation.ejs') %>
+    <main class="centered">
+      <h1><%= product.title %></h1>
+      <hr />
+      <div>
+        <img
+          src="<%= product.imageUrl %>"
+          alt="<%= product.title %>"
+          width="240px"
+          height="240px"
+        />
+      </div>
+      <h2><%= product.price %></h2>
+      <p><%= product.description %></p>
+
+      <form action="/cart" method="POST">
+        <button type="submit" class="btn">Add to Cart</button>
+      </form>
+    </main>
+
+    <script src="/js/main.js"></script>
+  </body>
+</html>
