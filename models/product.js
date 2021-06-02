@@ -8,7 +8,7 @@ class Product {
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
-    this._id = id;
+    this._id = id ? new ObjectId(id) : null;
   }
 
   save() {
@@ -18,7 +18,7 @@ class Product {
       // update
       operation = db
         .collection("products")
-        .updateOne({ _id: new ObjectId(this._id) }, { $set: this });
+        .updateOne({ _id: this._id }, { $set: this });
     } else {
       // insert
       operation = db.collection("products").insertOne(this);
