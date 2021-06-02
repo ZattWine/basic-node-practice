@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 const errorsController = require("./controllers/errors");
 const mongoConnect = require("./utils/database").mongoConnect;
+const User = require("./models/user");
 
 const app = express();
 
@@ -20,13 +21,13 @@ app.use(express.static(path.join(__dirname, "public")));
 // this code will only run for incoming request.
 // perform as Middleware
 app.use((req, res, next) => {
-  // User.findByPk(1)
-  //   .then((user) => {
-  //     // send user to all via req.user as middleware
-  //     req.user = user;
-  //     next();
-  //   })
-  //   .catch((err) => console.log(err));
+  User.findByPk("60b755b7390860b4442ee30c")
+    .then((user) => {
+      // send user to all via req.user as middleware
+      req.user = user;
+      next();
+    })
+    .catch((err) => console.log(err));
   next();
 });
 
