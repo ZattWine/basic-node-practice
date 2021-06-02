@@ -24,11 +24,7 @@ class Product {
       // insert
       operation = db.collection("products").insertOne(this);
     }
-    return operation
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => console.log(err));
+    return operation;
   }
 
   static fetchAll() {
@@ -61,15 +57,7 @@ class Product {
 
   static deleteById(prodId) {
     const db = getDb();
-    return db
-      .collection("products")
-      .deleteOne({ _id: ObjectId(prodId) })
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    return db.collection("products").deleteOne({ _id: ObjectId(prodId) });
   }
 }
 
