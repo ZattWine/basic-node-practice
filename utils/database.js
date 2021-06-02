@@ -1,9 +1,17 @@
-// sequelize v6 import
-const { Sequelize } = require("sequelize");
+const mongodb = require("mongodb");
 
-const sequelize = new Sequelize("basic_node", "root", "zattwine", {
-  dialect: "mysql",
-  host: "localhost",
-});
+const MongoClient = mongodb.MongoClient;
 
-module.exports = sequelize;
+const mongoConnect = (callback) => {
+  MongoClient.connect(
+    "mongodb+srv://zattwine:q1lm5aP1EQbh1GpV@cluster0.c5muj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    { useUnifiedTopology: true }
+  )
+    .then((client) => {
+      console.log("Connected!");
+      callback(client);
+    })
+    .catch((err) => console.log(err));
+};
+
+module.exports = mongoConnect;
