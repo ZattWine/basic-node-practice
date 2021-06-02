@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   User.findById("60b755b7390860b4442ee30c")
     .then((user) => {
       // send user to all via req.user as middleware
-      req.user = user;
+      req.user = new User(user.name, user.email, user.cart, user._id);
       next();
     })
     .catch((err) => console.log(err));
