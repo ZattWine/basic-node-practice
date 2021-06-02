@@ -18,7 +18,7 @@ exports.postAddProduct = (req, res, next) => {
     price: price,
     description: description,
     imageUrl: imageUrl,
-    userId: req.user, // mongoose will check _id from User
+    userId: req.user, // mongoose will automatically check _id from User
   });
   product
     .save()
@@ -77,6 +77,8 @@ exports.postEditProduct = (req, res, next) => {
 
 exports.getProducts = (req, res, next) => {
   Product.find()
+    .select("title price -_id") // use for needed attributes
+    .populate("userId", "name") // use for populate relation model data
     .then((products) => {
       res.render("admin/products", {
         data: products,
