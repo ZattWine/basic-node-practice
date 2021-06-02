@@ -21,14 +21,13 @@ app.use(express.static(path.join(__dirname, "public")));
 // this code will only run for incoming request.
 // perform as Middleware
 app.use((req, res, next) => {
-  User.findByPk("60b755b7390860b4442ee30c")
+  User.findById("60b755b7390860b4442ee30c")
     .then((user) => {
       // send user to all via req.user as middleware
       req.user = user;
       next();
     })
     .catch((err) => console.log(err));
-  next();
 });
 
 app.use("/admin", adminRoutes);
