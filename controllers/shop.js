@@ -1,5 +1,4 @@
 const Product = require("../models/product");
-const Cart = require("../models/cart");
 
 exports.getProducts = (req, res, next) => {
   Product.findAll()
@@ -26,17 +25,6 @@ exports.getProduct = (req, res, next) => {
       });
     })
     .catch((err) => console.log(err));
-
-  // Alternative approach for finding item
-  // Product.findAll({ where: { id: productId } })
-  //   .then((products) => {
-  //     res.render("shop/product-detail", {
-  //       product: products[0],
-  //       pageTitle: products[0].title,
-  //       path: "/products",
-  //     });
-  //   })
-  //   .catch((err) => console.log(err));
 };
 
 exports.getIndex = (req, res, next) => {
@@ -125,6 +113,31 @@ exports.getCheckout = (req, res, next) => {
     path: "/checkout",
     pageTitle: "Checkout",
   });
+};
+
+exports.postOrder = (req, res, next) => {
+  req.user
+    .getCart()
+    .then((cart) => {
+      return cart.getProducts();
+    })
+    .then((products) => {
+      return req.user
+        .createOrder()
+        .then((order) => {
+          return order.addProducts(
+            products.map((product) => {
+              product.orderItem = { quantity: product.cartItem.quantity };
+              return product;
+            })
+          );
+        })
+        .catch((err) => console.log(err));
+    })
+    .then((result) => {
+      res.redirect("/orders");
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.getOrders = (req, res, next) => {
