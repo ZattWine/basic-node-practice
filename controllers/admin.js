@@ -1,4 +1,3 @@
-const { ObjectId } = require("bson");
 const Product = require("../models/product");
 
 exports.getAddProduct = (req, res, next) => {
@@ -89,7 +88,7 @@ exports.getProducts = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  Product.deleteById(prodId)
+  Product.findByIdAndRemove(prodId, { useFindAndModify: false })
     .then((result) => {
       console.log("DESTROYED PRODUCT!");
       res.redirect("/admin/products");
