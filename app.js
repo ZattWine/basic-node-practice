@@ -10,13 +10,11 @@ const flash = require("connect-flash");
 
 const errorsController = require("./controllers/errors");
 const User = require("./models/user");
-
-const MONGODB_URI =
-  "mongodb+srv://zattwine:q1lm5aP1EQbh1GpV@cluster0.c5muj.mongodb.net/shop?retryWrites=true&w=majority";
+const { MONGO_URI } = require("./utils/consts");
 
 const app = express();
 const store = new MongoDBStore({
-  uri: MONGODB_URI,
+  uri: MONGO_URI,
   collection: "sessions",
 });
 const csrfProtection = csrf();
@@ -68,7 +66,7 @@ app.use(authRoutes);
 app.use(errorsController.get404Page);
 
 mongoose
-  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => {
     console.log("Connected!");
     app.listen(3000);

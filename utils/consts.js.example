@@ -1,5 +1,6 @@
 // config for SendinBlue mail service
 const constants = {
+  MONGO_URI: "",
   EMAIL: "yourregisteredmail@domain.com",
   SMTP_PSS: "SMTP Password",
 };
