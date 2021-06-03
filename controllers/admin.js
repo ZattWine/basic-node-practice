@@ -76,7 +76,7 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.find()
+  Product.find({ userId: req.user._id })
     // .select("title price -_id") // use for needed attributes
     // .populate("userId", "name") // use for populate relation model data
     .then((products) => {
