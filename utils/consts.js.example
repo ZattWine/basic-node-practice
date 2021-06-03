@@ -1,0 +1,5 @@
+const constants = {
+  MAIL_API_KEY: "",
+};
+
+module.exports = constants;
