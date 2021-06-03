@@ -1,5 +1,7 @@
+// config for SendinBlue mail service
 const constants = {
-  MAIL_API_KEY: "",
+  EMAIL: "yourregisteredmail@domain.com",
+  SMTP_PSS: "SMTP Password",
 };
 
 module.exports = constants;
