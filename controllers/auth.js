@@ -2,7 +2,7 @@ const crypto = require("crypto");
 
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
-const sendinBlue = require("nodemailer-sendinblue-transport");
+// const sendinBlue = require("nodemailer-sendinblue-transport");
 const { validationResult } = require("express-validator");
 
 const User = require("../models/user");
@@ -116,7 +116,9 @@ exports.postLogin = (req, res, next) => {
         });
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -160,11 +162,15 @@ exports.postSignup = (req, res, next) => {
           html: "<h1>You successfully singup!</h1>",
         })
         .catch((err) => {
-          console.log(err);
+          const error = new Error(err);
+          error.httpStatusCode = 500;
+          return next(error);
         });
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -221,7 +227,9 @@ exports.postReset = (req, res, next) => {
         });
       })
       .catch((err) => {
-        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
       });
   });
 };
@@ -245,7 +253,9 @@ exports.getNewPassword = (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -274,6 +284,8 @@ exports.postNewPassword = (req, res, next) => {
       res.redirect("/login");
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
