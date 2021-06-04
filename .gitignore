@@ -154,5 +154,5 @@ tmp/
 temp/
 
 utils/consts.js
-# /data/invoices/*.pdf
-# /images/*
+data/invoices/*.pdf
+images/*
