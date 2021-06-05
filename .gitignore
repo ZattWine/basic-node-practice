@@ -152,3 +152,7 @@ dist/
 # Temporary folders
 tmp/
 temp/
+
+utils/consts.js
+data/invoices/*.pdf
+images/

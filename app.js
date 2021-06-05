@@ -1,23 +1,116 @@
-// Core
 const path = require("path");
 
-// Third party
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const session = require("express-session");
+const MongoDBStore = require("connect-mongodb-session")(session);
+const csrf = require("csurf");
+const flash = require("connect-flash");
+const multer = require("multer");
+
+const errorsController = require("./controllers/errors");
+const User = require("./models/user");
+const { MONGO_URI } = require("./utils/consts");
 
 const app = express();
+const store = new MongoDBStore({
+  uri: MONGO_URI,
+  collection: "sessions",
+});
+const csrfProtection = csrf();
 
-const adminData = require("./routes/admin");
-const shopRoutes = require("./routes/shop");
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
-
-app.use("/admin", adminData.routes);
-app.use(shopRoutes);
-
-app.use((req, res, next) => {
-  res.status(404).send("<h1>Page not found!</h1>");
+const fileStorage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, "images");
+  },
+  filename: (req, file, callback) => {
+    callback(null, new Date().toISOString() + "-" + file.originalname);
+  },
 });
 
-app.listen(3000);
+const fileFilter = (req, file, callback) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    callback(null, true);
+  } else {
+    callback(null, false);
+  }
+};
+
+app.set("view engine", "ejs");
+app.set("views", "views");
+
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
+const authRoutes = require("./routes/auth");
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
+);
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/images", express.static(path.join(__dirname, "images")));
+app.use(
+  session({
+    secret: "my secret",
+    resave: false,
+    saveUninitialized: false,
+    store: store,
+  })
+);
+app.use(csrfProtection);
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
+
+app.use((req, res, next) => {
+  // throw new Error('DUMMY_ERROR');
+  if (!req.session.user) {
+    return next();
+  }
+  User.findById(req.session.user._id)
+    .then((user) => {
+      // throw new Error('DUMMY_ERROR');
+      if (!user) {
+        return next();
+      }
+      req.user = user;
+      next();
+    })
+    .catch((err) => {
+      next(new Error(err));
+    });
+});
+
+app.use("/admin", adminRoutes);
+app.use(shopRoutes);
+app.use(authRoutes);
+app.use("/500", errorsController.get500Page);
+app.use(errorsController.get404Page);
+
+app.use((error, req, res, next) => {
+  // res.status(error.httpStatusCode).render(...);
+  // res.redirect('/500');
+  res.status(500).render("500", {
+    pageTitle: "Error!",
+    path: "/500",
+  });
+});
+
+mongoose
+  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((result) => {
+    console.log("Connected!");
+    app.listen(3000);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
