@@ -52,7 +52,7 @@ The installation and testing on your local machine.
    npm start
    ```
 
-5. If `npm start` success, you can now test from your browser typing [http://localhost:3000](http://localhost:3000).
+5. If `npm start` success, you can now test from your browser by typing [http://localhost:3000](http://localhost:3000)
 
 # Further
 
