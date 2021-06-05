@@ -3,6 +3,7 @@ const constants = {
   MONGO_URI: "",
   EMAIL: "yourregisteredmail@domain.com",
   SMTP_PSS: "SMTP Password",
+  STRIPE_KEY: "YOUR_STRIPE_SCRECT_KEY",
 };
 
 module.exports = constants;
