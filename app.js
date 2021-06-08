@@ -9,6 +9,7 @@ const csrf = require("csurf");
 const flash = require("connect-flash");
 const multer = require("multer");
 const helmet = require("helmet");
+const compression = require("compression");
 
 const errorsController = require("./controllers/errors");
 const User = require("./models/user");
@@ -52,6 +53,9 @@ const authRoutes = require("./routes/auth");
 
 // to secure response headers
 app.use(helmet());
+
+// assets compression
+app.use(compression());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
