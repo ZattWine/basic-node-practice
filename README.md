@@ -16,16 +16,17 @@ Simple Online Shop is a sample web application using NodeJS.
 - Sending Mails - [sending-mails](https://github.com/ZattWine/basic-node-practice/tree/sending-mails)
 - Async requests - [async-requests](https://github.com/ZattWine/basic-node-practice/tree/async-requests)
 - Payment - [payment](https://github.com/ZattWine/basic-node-practice/tree/payment)
+- Deployment - [deployment](https://github.com/ZattWine/basic-node-practice/tree/deployment)
 
 > You can see specific implementation and specific commit at all branches.
 
 # Third-party
 
-- Views engine - `pug`, `express-handlebars` and `ejs` 
+- Views engine - `pug`, `express-handlebars` and `ejs`
 - Password hashing - `bcrypt`
 - CSRF protection - `csurf`
 - Passing error message - `connect-flash`
-- Database -  `mysql2`, `sequelize`, `mongodb` and `mongoose`
+- Database - `mysql2`, `sequelize`, `mongodb` and `mongoose`
 - Validation - `express-validator`
 - Cookies and sessions - `express-session`
 - File upload and download (to fix form submit header) - `multer`
@@ -57,4 +58,3 @@ The installation and testing on your local machine.
 # Further
 
 You need to create `data/invoices` folder and subfolder if you want to look the invoices pdf after you click `Invoice` link on your `Order` page. You don't need to create `images`. If the application start, it will automatically create `images` folder on your project root.
-
