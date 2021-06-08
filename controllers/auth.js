@@ -2,17 +2,15 @@ const crypto = require("crypto");
 
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
-// const sendinBlue = require("nodemailer-sendinblue-transport");
 const { validationResult } = require("express-validator");
 
 const User = require("../models/user");
-const { EMAIL, SMTP_PSS } = require("../utils/consts");
 
 const transporter = nodemailer.createTransport({
   service: "SendinBlue", // no need to set host or port etc.
   auth: {
-    user: EMAIL,
-    pass: SMTP_PSS,
+    user: process.env.SIB_EMAIL,
+    pass: process.env.SIB_SMTP_KEY,
   },
 });
 
@@ -28,8 +26,8 @@ exports.getLogin = (req, res, next) => {
     pageTitle: "Login",
     errorMessage: message,
     oldInput: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     validationErrors: [],
   });
