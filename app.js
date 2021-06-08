@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -10,6 +11,7 @@ const flash = require("connect-flash");
 const multer = require("multer");
 const helmet = require("helmet");
 const compression = require("compression");
+const morgan = require("morgan");
 
 const errorsController = require("./controllers/errors");
 const User = require("./models/user");
@@ -51,11 +53,17 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const authRoutes = require("./routes/auth");
 
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, "access.log"),
+  { flags: "a" }
+);
+
 // to secure response headers
 app.use(helmet());
-
 // assets compression
 app.use(compression());
+// logging
+app.use(morgan("combined", { stream: accessLogStream }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
