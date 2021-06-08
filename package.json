@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "NODE_ENV=production MONGO_USER=zattwine MONGO_PASSWORD=q1lm5aP1EQbh1GpV MONGO_DEFAULT_DATABASE=shop STRIPE_KEY=sk_test_51IysjXGuFTCxSSwSs4TTInh3C60kD0vcSIO7Sw0Sm8F9vepfDMYrmrzAsIg59ZGMDR9vwe8iqP70FyvFJYg8WAse00rbPuCY2N SIB_EMAIL=zattwine.8191@gmail.com SIB_SMTP_KEY=hHc62gaZdf7Bk8Fy node app.js",
+    "start-server": "node app.js",
+    "start:dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
     "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^2.4.1",
     "csurf": "^1.11.0",
@@ -31,8 +34,10 @@
     "express-handlebars": "^5.3.2",
     "express-session": "^1.17.2",
     "express-validator": "^6.11.1",
+    "helmet": "^4.6.0",
     "mongodb": "^3.6.9",
     "mongoose": "^5.12.12",
+    "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
     "nodemailer": "^6.6.1",

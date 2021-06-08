@@ -1,0 +1,10 @@
+{
+    "env": {
+        "MONGO_USER": "zattwine",
+        "MONGO_PASSWORD": "q1lm5aP1EQbh1GpV",
+        "MONGO_DEFAULT_DATABASE": "shop",
+        "STRIPE_KEY": "sk_test_51IysjXGuFTCxSSwSs4TTInh3C60kD0vcSIO7Sw0Sm8F9vepfDMYrmrzAsIg59ZGMDR9vwe8iqP70FyvFJYg8WAse00rbPuCY2N",
+        "SIB_EMAIL": "zattwine.8191@gmail.com",
+        "SIB_SMTP_KEY": "hHc62gaZdf7Bk8Fy"
+    }
+}
