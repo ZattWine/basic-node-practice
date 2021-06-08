@@ -1,6 +1,7 @@
 # Simple Online Shop
 
 Simple Online Shop is a sample web application using NodeJS.
+Live Demo - [https://node-shop-classic.herokuapp.com/](https://node-shop-classic.herokuapp.com/)
 
 # Implementation
 
