@@ -32,6 +32,9 @@ Simple Online Shop is a sample web application using NodeJS.
 - File upload and download (to fix form submit header) - `multer`
 - Sending Mails - `nodemailer` and `sendinblue` mail service
 - Payment - `stripe` online payment service
+- Secure Response Headers - `helmet`
+- Assets compression - `compression`
+- Requests logging - `morgan`
 
 # Installation
 
